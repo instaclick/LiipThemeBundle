@@ -108,6 +108,28 @@ class FileLocator extends BaseFileLocator
             return $this->locateResource($name, $this->path, $first);
         }
 
+        if (strncmp($name, 'views/', 6) === 0) {
+            return $this->locateAppResource($name, $this->path, $first);
+        }
+
+        return parent::locate($name, $dir, $first);
+    }
+
+    /**
+     * Locate theme in app/Resources/themes/.
+     *
+     * @param string $name
+     * @param string $dir
+     * @param bool $first
+     * @return string
+     */
+    public function locateAppResource($name, $dir = null, $first = true)
+    {
+        $path = $dir.'/themes/'.$this->lastTheme.'/'.substr($name, 6);
+        if (file_exists($path)) {
+            return $path;
+        }
+
         return parent::locate($name, $dir, $first);
     }
 
