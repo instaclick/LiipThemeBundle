@@ -108,7 +108,7 @@ class FileLocator extends BaseFileLocator
             return $this->locateResource($name, $this->path, $first);
         }
 
-        if (strncmp($name, 'views/', 6) === 0) {
+        if (0 === strpos($name, 'views/')) {
             return $this->locateAppResource($name, $this->path, $first);
         }
 
